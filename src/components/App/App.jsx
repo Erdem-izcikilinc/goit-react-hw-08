@@ -1,16 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route } from "react-router-dom";
 import { refreshUser } from "../../redux/auth/operations";
 import { selectIsRefreshing } from "../../redux/auth/selectors";
 import Layout from "../Layout/Layout";
+import { Routes, Route } from "react-router-dom";
 import Home from "../../pages/Home/Home";
 import Registration from "../../pages/Registration/Registration";
 import Login from "../../pages/Login/Login";
 import Contacts from "../../pages/Contacts/Contacts";
-import PrivateRoute from "../PrivateRoute";
-import RestrictedRoute from "../RestrictedRoute";
-import styles from "./App.module.css";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import RestrictedRoute from "../RestrictedRoute/RestrictedRoute";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -20,7 +19,9 @@ export default function App() {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  if (isRefreshing) return <div className={styles.loading}>Refreshing user...</div>;
+  if (isRefreshing) {
+    return <b>Loading...</b>;
+  }
 
   return (
     <Layout>
@@ -28,11 +29,15 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route
           path="/register"
-          element={<RestrictedRoute redirectTo="/contacts" component={<Registration />} />}
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<Registration />} />
+          }
         />
         <Route
           path="/login"
-          element={<RestrictedRoute redirectTo="/contacts" component={<Login />} />}
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<Login />} />
+          }
         />
         <Route
           path="/contacts"
