@@ -1,0 +1,3 @@
+.menu { display: flex; gap: 12px; align-items: center; }
+.btn { padding: 6px 10px; }
+.greet { opacity: .8; }
